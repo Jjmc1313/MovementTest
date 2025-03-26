@@ -13,31 +13,25 @@ int main() {
     Player player;
     player.init();
 
-    /*
-    std::cout << "Enter Grid Size (x): ";
-    int gridSizeX;
-    std::cin >> gridSizeX;
-    player.gridWidth = gridSizeX / 2;
+    std::cout << "Press Any Key...";
+    getch();
 
-    std::cout << "Enter Grid Size (y): ";
-    int gridSizeY;
-    std::cin >> gridSizeY;
-    player.gridHeight = gridSizeY / 2;
-    */
+    int targetMs = 1000 / 30; // Unused
+    std::clock_t c_start;
+    std::clock_t c_end;
 
-    int targetMs = 1000 / 30;
-
-    while (player.initialized /*&& player.inBounds()*/) {  
-        std::clock_t c_start = std::clock();
+    while (player.initialized && player.inBounds()) {  
+        c_start = std::clock();
         player.listen();
         player.updatePos();
-        std::clock_t c_end = std::clock();
+        player.drawGrid();
+        c_end = std::clock();
 
         // https://stackoverflow.com/questions/20167685/how-to-measure-cpu-time
         long double time_elapsed = 1000 * (c_end - c_start) / CLOCKS_PER_SEC;
-        std::cout << time_elapsed << std::endl;
+        std::cout << "Draw Time: " << time_elapsed << "ms" << std::endl;
     
-        // std::this_thread::sleep_for(std::chrono::milliseconds(125));
+        std::this_thread::sleep_for(std::chrono::milliseconds(125 - static_cast<int>(time_elapsed))); // ~8 FPS
     }
 
     return 0;

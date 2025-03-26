@@ -44,19 +44,19 @@ void Player::listen() {
 
     switch (ch) {
     case 72:
-        inputVector = UP;
+        if (inputVector != DOWN) inputVector = UP;
         break;
 
     case 80:
-        inputVector = DOWN;
+        if (inputVector != UP) inputVector = DOWN;
         break;
 
     case 75:
-        inputVector = LEFT;
+        if (inputVector != RIGHT) inputVector = LEFT;
         break;
 
     case 77:
-        inputVector = RIGHT;
+        if (inputVector != LEFT) inputVector = RIGHT;
         break;
 
     case 113:
@@ -85,13 +85,21 @@ void Player::updatePos() {
         x++;
         break;
     }
-
-    system("cls");
-    drawGrid();
 }
 
 void Player::drawGrid() {
+    system("cls");
+
+    // draws +---+ line at top 
+    std::cout << "+";
+    for (int w = 0; w < gridWidth * 2; w++) {
+        std::cout << "--";
+    }
+    std::cout << "+" << std::endl;
+
+    // Draws grid
     for (int yPos = gridHeight * -1; yPos < gridHeight; yPos++) {
+        std::cout << "|";
         for (int xPos = gridWidth * -1; xPos < gridWidth; xPos++) {
             if (xPos == x && yPos == y) {
                 std::cout << marker << marker;
@@ -99,15 +107,23 @@ void Player::drawGrid() {
                 std::cout << "  ";
             }
         }
-        std::cout << std::endl;
+        std::cout << "|" << std::endl;
     }
 
+    // draws +---+ line at bottom
+    std::cout << "+";
+    for (int w = 0; w < gridWidth * 2; w++) {
+        std::cout << "--";
+    }
+    std::cout << "+" << std::endl;
+
+    // Outputs coordinates
     std::cout << "X: " << x << " Y: " << y << std::endl;
 }
 
 bool Player::inBounds() {
-    bool xInRange = (x < gridWidth) && (x > gridWidth * -1);
-    bool yInRange = (y < gridHeight) && (y > gridHeight * -1);
+    bool xInRange = (x <= gridWidth) && (x >= gridWidth * -1);
+    bool yInRange = (y <= gridHeight) && (y >= gridHeight * -1);
 
     if (xInRange && yInRange) {
         return true;
