@@ -60,7 +60,7 @@ void Player::listen() {
         break;
 
     case 113:
-        exit;
+        initialized = false;
 
     default:
         break;
@@ -96,11 +96,13 @@ void Player::drawGrid() {
             if (xPos == x && yPos == y) {
                 std::cout << marker << marker;
             } else {
-                std::cout << "__";
+                std::cout << "  ";
             }
         }
         std::cout << std::endl;
     }
+
+    std::cout << "X: " << x << " Y: " << y << std::endl;
 }
 
 bool Player::inBounds() {
