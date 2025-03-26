@@ -10,20 +10,22 @@ enum Vector {
 };
 
 class Player {
-    private:
+    public:
         int x;
         int y;
+        int gridWidth;
+        int gridHeight;
         char marker;
         Vector inputVector;
-
-    public:
         bool initialized;
 
         void init();
+
         void listen();
         void updatePos();
+        void drawGrid();
 
-        bool inBounds(int, int);
+        bool inBounds();
 };
 
 #endif

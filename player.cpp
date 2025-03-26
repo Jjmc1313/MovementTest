@@ -10,32 +10,39 @@ class Player {
     public:
         int x;
         int y;
+        int gridWidth;
+        int gridHeight;
         char marker;
         Vector inputVector;
         bool initialized;
 
         void init();
+
         void listen();
         void updatePos();
+        void drawGrid();
 
-        bool inBounds(int, int);
+        bool inBounds();
 };
 
 void Player::init() {
     x = 0;
     y = 0;
+    gridWidth = 10;
+    gridHeight = 10;
     marker = '#';
     inputVector = LEFT;
     initialized = true;
 }
 
 void Player::listen() {    
-    int a = getch();
-    int b = getch();
+    char ch;
+    
+    while (_kbhit()) {
+        ch = _getch();
+    } 
 
-    // std::cout << "A: " << a << " B: " << b << std::endl;
-
-    switch (b) {
+    switch (ch) {
     case 72:
         inputVector = UP;
         break;
@@ -63,11 +70,11 @@ void Player::listen() {
 void Player::updatePos() {
     switch (inputVector) {
     case UP:
-        y++;
+        y--;
         break;
     
     case DOWN:
-        y--;
+        y++;
         break;
 
     case LEFT:
@@ -79,9 +86,30 @@ void Player::updatePos() {
         break;
     }
 
-    std::cout << "X: " << x << " Y: " << y << "\r";
+    system("cls");
+    drawGrid();
 }
 
-bool Player::inBounds(int width, int height) {
-    return true;
+void Player::drawGrid() {
+    for (int yPos = gridHeight * -1; yPos < gridHeight; yPos++) {
+        for (int xPos = gridWidth * -1; xPos < gridWidth; xPos++) {
+            if (xPos == x && yPos == y) {
+                std::cout << marker << marker;
+            } else {
+                std::cout << "__";
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+bool Player::inBounds() {
+    bool xInRange = (x < gridWidth) && (x > gridWidth * -1);
+    bool yInRange = (y < gridHeight) && (y > gridHeight * -1);
+
+    if (xInRange && yInRange) {
+        return true;
+    } else {
+        return false;
+    }
 }
