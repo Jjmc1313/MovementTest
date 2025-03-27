@@ -9,18 +9,20 @@ int randInRange(int, int);
 
 int main() {
     srand(time(0));
+    std::cout << "Press Any Key...";
+    getch();
+
+    // For some reason, putting this at the top of main causes line 12 to not appear at runtime. The program still behaves normally otherwise
+    std::ios_base::sync_with_stdio(false);
 
     Player player;
     player.init();
-
-    std::cout << "Press Any Key...";
-    getch();
 
     int targetMs = 1000 / 30; // Unused
     std::clock_t c_start;
     std::clock_t c_end;
 
-    while (player.initialized && player.inBounds()) {  
+    while (player.initialized && player.inBounds()) {
         c_start = std::clock();
         player.listen();
         player.updatePos();
