@@ -15,9 +15,13 @@ class Player {
         int y;
         int gridWidth;
         int gridHeight;
+        
         char marker;
+
         Vector inputVector;
+
         bool initialized;
+        bool paused;
 
         void init();
 

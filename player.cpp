@@ -11,11 +11,16 @@ class Player {
     public:
         int x;
         int y;
+
         int gridWidth;
         int gridHeight;
+
         char marker;
+
         Vector inputVector;
+
         bool initialized;
+        bool paused;
 
         void init();
 
@@ -62,6 +67,11 @@ void Player::listen() {
 
     case 113:
         initialized = false;
+        break;
+
+    // Pause - Not implemented
+    case 27:
+        paused = !paused;
 
     default:
         break;
@@ -119,7 +129,7 @@ void Player::drawGrid() {
     std::cout << "+" << std::endl;
 
     // Outputs coordinates
-    std::cout << "X: " << x << " Y: " << y << std::endl;
+    // std::cout << "X: " << x << " Y: " << y << std::endl;
 }
 
 bool Player::inBounds() {
