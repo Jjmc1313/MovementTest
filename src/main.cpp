@@ -63,7 +63,7 @@ int main() {
         draw(player, gridWidth, gridHeight, fruitX, fruitY);
 
         std::cout << "Score: $" << player.score << std::endl;
-        std::cout << fruitX << " " << fruitY << std::endl;
+        // std::cout << fruitX << " " << fruitY << std::endl;
         // std::cout << "X: " << player.x << " Y: " << player.y << std::endl;
         c_end = std::clock();
 
