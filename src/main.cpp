@@ -11,7 +11,8 @@ void draw(Player target, int width, int height);
 
 int main() {
     // Change the terminal code page to UTF-8 to display block characters correctly
-    system("chcp 65001"); // Default 437 ()
+    system("chcp 65001"); // Default 437 (US)
+    system("cls");
 
     std::cout << "   ___   ____     __  ___                                     __     ______          __ \n"
               << "  |__ \\ / __ \\   /  |/  /___ _   _____  ____ ___  ___  ____  / /_   /_  __/__  _____/ /_\n"
@@ -38,7 +39,7 @@ int main() {
 
     do {
         if (kbListener.paused) {
-            std::cout << "Paused!" << std::endl;
+            std::cout << "Paused! Press Any Key to Unpause..." << std::endl;
             getch();
             kbListener.paused = !kbListener.paused;
         }
