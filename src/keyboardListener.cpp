@@ -49,6 +49,8 @@ void KBListener::listen(Player& targetPlayer) {
         default:
             break;
         }
+        
+    return;
 }
 
 #endif

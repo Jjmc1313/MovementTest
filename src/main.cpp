@@ -7,9 +7,11 @@
 #include "player.hpp"
 #include "keyboardListener.hpp"
 
-void draw(Player target, int width, int height);
+void draw(Player, int, int, int, int);
 
 int main() {
+    srand(time(0));
+
     // Change the terminal code page to UTF-8 to display block characters correctly
     system("chcp 65001"); // Default 437 (US)
     system("cls");
@@ -28,6 +30,12 @@ int main() {
         gridHeight;
     gridWidth = 10;
     gridHeight = 10;
+    // *2 these values
+
+    int fruitX,
+        fruitY;
+    fruitX = 4;
+    fruitY = 0;
 
     Player player;
     KBListener kbListener;
@@ -46,11 +54,17 @@ int main() {
 
         c_start = std::clock();
         system("cls");
+
         kbListener.listen(player);
         player.updatePos();
         player.isInBounds(gridWidth, gridHeight);
-        draw(player, gridWidth, gridHeight);
-        std::cout << "X: " << player.x << " Y: " << player.y << std::endl;
+        player.gotFruit(fruitX, fruitY, gridWidth, gridHeight);
+
+        draw(player, gridWidth, gridHeight, fruitX, fruitY);
+
+        std::cout << "Score: $" << player.score << std::endl;
+        std::cout << fruitX << " " << fruitY << std::endl;
+        // std::cout << "X: " << player.x << " Y: " << player.y << std::endl;
         c_end = std::clock();
 
         long double time_elapsed = 1000 * (c_end - c_start) / CLOCKS_PER_SEC;
@@ -62,19 +76,21 @@ int main() {
     return 0;
 }
 
-void draw(Player target, int width, int height) {
+void draw(Player target, int width, int height, int fruitX, int fruitY) {
     // draws +---+ line at top 
-    for (int w = -1; w < width * 2; w++) {
+    for (int w = -1; w <= width * 2; w++) {
         std::cout << "▄▄";
     }
     std::cout << std::endl;
 
     // Draws grid
-    for (int yPos = height * -1; yPos < height; yPos++) {
+    for (int yPos = -height; yPos <= height; yPos++) {
         std::cout << "█";
-        for (int xPos = width * -1; xPos < width; xPos++) {
+        for (int xPos = -width; xPos <= width; xPos++) {
             if (xPos == target.x && yPos == target.y) {
                 std::cout << "▓▓";
+            } else if (xPos == fruitX && yPos == fruitY) {
+                std::cout << "$1";
             } else {
                 std::cout << "  ";
             }
@@ -83,7 +99,7 @@ void draw(Player target, int width, int height) {
     }
 
     // draws +---+ line at bottom
-    for (int w = -1; w < width * 2; w++) {
+    for (int w = -1; w <= width * 2; w++) {
         std::cout << "▀▀";
     }
     std::cout << std::endl;

@@ -1,5 +1,7 @@
 #include <iostream>
 
+int randInRange(int, int);
+
 enum Vector {
     UP, DOWN, LEFT, RIGHT
 };
@@ -8,6 +10,7 @@ class Player {
     public:
     int x;
     int y;
+    int score;
     Vector dirVector;
     bool initialized;
     bool inBounds;
@@ -15,14 +18,18 @@ class Player {
     void init();
     void updatePos();
     void isInBounds(int, int);
+    void gotFruit(int&, int&, int, int);
 };
 
 void Player::init() {
-    x = 0;
+    x = -5;
     y = 0;
+    score = 0;
     dirVector = RIGHT;
     initialized = true;
     inBounds = true;
+
+    return;
 }
 
 void Player::updatePos() {
@@ -43,6 +50,8 @@ void Player::updatePos() {
             x++;
             break;
         }
+
+    return;
 }
 
 void Player::isInBounds(int gridWidth, int gridHeight) {
@@ -54,4 +63,20 @@ void Player::isInBounds(int gridWidth, int gridHeight) {
     } else {
         inBounds = false;
     }
+
+    return;
+}
+
+void Player::gotFruit(int& fruitX, int& fruitY, int gridWidth, int gridHeight) {
+    if (x == fruitX && y == fruitY) {
+        score++;
+        fruitX = randInRange(-gridWidth + 1, gridWidth - 1);
+        fruitY = randInRange(-gridHeight + 1, gridHeight - 1);
+    }
+    
+    return;
+}
+
+int randInRange(int min, int max) {
+    return rand() % (max + 1 - min) + min;
 }

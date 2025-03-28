@@ -11,6 +11,7 @@ class Player {
     public:
     int x;
     int y;
+    int score;
     Vector dirVector;
     bool initialized;
     bool inBounds;
@@ -18,6 +19,7 @@ class Player {
     void init();
     void updatePos();
     bool isInBounds(int, int);
+    void gotFruit(int&, int&, int, int);
 };
 
 #endif
