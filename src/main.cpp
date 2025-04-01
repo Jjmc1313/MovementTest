@@ -43,6 +43,7 @@ int main() {
     KBListener kbListener;
 
     player.init();
+    kbListener.paused = false;
 
     std::clock_t c_start;
     std::clock_t c_end;
