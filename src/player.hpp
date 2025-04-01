@@ -11,6 +11,7 @@ class Player {
     public:
     int x;
     int y;
+    int length;
     int score;
     Vector dirVector;
     bool initialized;
